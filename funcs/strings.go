@@ -5,8 +5,8 @@ import (
 	"encoding/hex"
 )
 
-// Md5 计算字符串的 MD5 散列值
-func Md5(str string) string {
+// MD5 计算字符串的 MD5 散列值
+func MD5(str string) string {
 	h := md5.New()
 	h.Write([]byte(str))
 	return hex.EncodeToString(h.Sum(nil))
@@ -27,7 +27,7 @@ func StrCharlen(str string) int {
 // length
 // 如果提供了正数的 length，返回的字符串将从 start 处开始最多包括 length 个字符（取决于 string 的长度）。
 // 如果提供了负数的 length，那么 string 末尾处的 length 个字符将会被省略（若 start 是负数则从字符串尾部算起）。如果 start 不在这段文本中，那么将返回 false。
-// 如果提供了值为 0，false 或 null 的 length，那么将返回一个空字符串。
+// 如果提供了值为 0 那么将返回一个空字符串。
 func Substr(str string, start, length int) (string, bool) {
 	data := []rune(str)
 	strLen := len(data)
@@ -43,9 +43,9 @@ func Substr(str string, start, length int) (string, bool) {
 	if length < 0 {
 		end = strLen + length
 	} else {
-		end = start + length
+		end = begin + length
 	}
-	if end < 0 || begin >= strLen || begin > end {
+	if end < 0 || begin > strLen || begin > end {
 		return "", false
 	}
 	if end > strLen {
@@ -54,6 +54,8 @@ func Substr(str string, start, length int) (string, bool) {
 	return string(data[begin:end]), true
 }
 
+// SubStrToEnd 从start位置到字符串末尾
+// start 负数从尾部开始算起
 func SubStrToEnd(str string, start int) (string, bool) {
 	data := []rune(str)
 	strLen := len(data)

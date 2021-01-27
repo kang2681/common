@@ -139,6 +139,7 @@ func StringArrayCombine(keys, values []string) (map[string]string, error) {
 }
 
 // 统计数组中所有的值
+
 func StringArrayCountValues(arr []string) map[string]int {
 	m := make(map[string]int)
 	for _, v := range arr {
