@@ -1,14 +1,18 @@
 package osext
 
 import (
+	"errors"
 	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/mholt/archiver"
 	"github.com/otiai10/copy"
 )
+
+var FILE_NOT_FIND = errors.New("File Not Find")
 
 // CopyFile
 // src 文件不存在 将报错
@@ -88,51 +92,76 @@ func Unarchive(sources, destination string) error {
 	return archiver.Unarchive(sources, destination)
 }
 
-//
-//func FileAppendString(src, data string) (int, error) {
-//	f, err := os.OpenFile(src, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+// ListFiles 列出 src 根目录下的文件和目录(不包含子目录下的文件)
+func ListFiles(src string) ([]os.FileInfo, error) {
+	fi, err := os.Stat(src)
+	if err != nil {
+		return nil, err
+	}
+	if !fi.IsDir() {
+		return []os.FileInfo{fi}, nil
+	}
+	return ioutil.ReadDir(src)
+}
+
+type FilesTree struct {
+	Files []os.FileInfo // 文件
+	Dirs  []*FilesTree  // 目录
+}
+
+// ListFilesTree 列出目录树
+func ListFilesTree(src string) (*FilesTree, error) {
+	list, err := ListFiles(src)
+	if err != nil {
+		return nil, err
+	}
+	if len(list) == 0 {
+		return nil, nil
+	}
+	rs := &FilesTree{}
+	for _, v := range list {
+		if v.IsDir() {
+			rs.Files = append(rs.Files, v)
+			continue
+		}
+		dirTree, err := ListFilesTree(filepath.Join(src, v.Name()))
+		if err != nil {
+			return nil, err
+		}
+		rs.Dirs = append(rs.Dirs, dirTree)
+	}
+	return rs, nil
+}
+
+// 文件查找
+func SearchFile(src string, keyword string) (os.FileInfo, error) {
+	list, err := ListFiles(src)
+	if err != nil {
+		return nil, err
+	}
+	for _, v := range list {
+		if v.IsDir() {
+			continue
+		}
+		if strings.Contains(src, keyword) {
+			return v, nil
+		}
+	}
+	return nil, FILE_NOT_FIND
+}
+
+//func SearchFileTree(src string, keyword string) ([]os.FileInfo, error) {
+//	list, err := ListFiles(src)
 //	if err != nil {
-//		return 0, err
+//		return nil, err
 //	}
-//	defer f.Close()
-//	return f.WriteString(data)
-//}
-//
-//func FileAppend(src string, data []byte) (int, error) {
-//	f, err := os.OpenFile(src, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-//	if err != nil {
-//		return 0, err
-//	}
-//	defer f.Close()
-//	return f.Write(data)
-//}
-//func FileAppendFrom(src string, r io.Reader) (n int, err error) {
-//	f, err := os.OpenFile(src, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-//	if err != nil {
-//		return 0, err
-//	}
-//	defer f.Close()
-//	buf := make([]byte, 1024)
-//	for {
-//		m, e := r.Read(buf)
-//		if m < 0 {
-//			return n, fmt.Errorf("reader returned negative count from Read")
+//	for _, v := range list {
+//		if v.IsDir() {
+//			continue
 //		}
-//		if m < 0 {
-//			s, err := f.Write(buf[0:m])
-//			if err != nil {
-//				return n, err
-//			}
-//			if s != m {
-//				return n, fmt.Errorf("file writer returned write count not equal read count")
-//			}
-//		}
-//		n = n + m
-//		if e == io.EOF {
-//			return n, nil
-//		}
-//		if e != nil {
-//			return n, e
+//		if strings.Contains(src, keyword) {
+//			return &v, nil
 //		}
 //	}
+//	return nil, FILE_NOT_FIND
 //}
