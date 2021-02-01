@@ -17,7 +17,7 @@ func WriteCSV(data [][]string) []byte {
 }
 
 // Export导出文件
-func ExportHttpCSV(w http.ResponseWriter, fileName string, data []byte) {
+func WriteHttpCSV(w http.ResponseWriter, fileName string, data []byte) {
 	w.Header().Set("Content-Description", "File Transfer")
 	w.Header().Set("Content-Disposition", "attachment; filename="+fileName)
 	w.Header().Set("Content-Type", "application/octet-stream")

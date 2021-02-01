@@ -14,9 +14,12 @@ require (
 	github.com/nwaples/rardecode v1.1.0 // indirect
 	github.com/otiai10/copy v1.4.2
 	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
+	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/streadway/amqp v1.0.0 // indirect
 	github.com/ulikunitz/xz v0.5.9 // indirect
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
+	gorm.io/driver/mysql v1.0.4 // indirect
+	gorm.io/gorm v1.20.12 // indirect
 )
