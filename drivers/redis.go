@@ -6,12 +6,12 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
-//NewRedisConn 获取连接池 18.03.21更新
-func NewRedisConn(server string, max, min, timeoutSecond int) *redis.Pool {
+//NewRedisConn 获取连接池
+func NewRedisConn(server string, maxActive, maxIdle, timeoutSecond int) *redis.Pool {
 	timeout := time.Duration(timeoutSecond) * time.Second
 	return &redis.Pool{
-		MaxIdle:   min,
-		MaxActive: max,
+		MaxIdle:   maxIdle,
+		MaxActive: maxActive,
 		Dial: func() (redis.Conn, error) {
 			c, err := redis.Dial("tcp", server, redis.DialConnectTimeout(timeout), redis.DialReadTimeout(timeout), redis.DialWriteTimeout(timeout))
 			if err != nil {

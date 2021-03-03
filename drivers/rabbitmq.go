@@ -9,6 +9,83 @@ import (
 	"github.com/streadway/amqp"
 )
 
+type RabbitMQConfig struct {
+	Host     string // host
+	Username string // 用户名
+	Password string // 密码
+	VHost    string // vhost
+}
+
+type RabbitMQClient struct {
+	config *RabbitMQConfig
+	conn   *amqp.Connection
+	log    *logrus.Entry
+}
+
+func NewRabbitMQClient(config *RabbitMQConfig) *RabbitMQClient {
+	client := &RabbitMQClient{
+		config: config,
+		log:    logrus.WithField("struct ", "RabbitMQClient"),
+	}
+	return client
+}
+
+// rabbitmq 连接
+func (c *RabbitMQClient) Connect() error {
+	addr := fmt.Sprintf("amqp://%s:%s@%s", c.config.Username, c.config.Password, c.config.Host)
+	if c.config.VHost != "" {
+		addr = fmt.Sprintf("%s/%s", addr, c.config.VHost)
+	}
+	c.log.Debugf(" connect add :%s", addr)
+	conn, err := amqp.Dial(addr)
+	if err != nil {
+		c.log.Debugf("connect add %s error %s", addr, err.Error())
+		return err
+	}
+	c.log.Debugf("connect add %s success", addr)
+	c.conn = conn
+	return nil
+}
+
+// 发布消息
+func (c *RabbitMQClient) Publish() {
+	//ch, err := c.conn.Channel()
+	//if err != nil {
+	//	return
+	//}
+	//defer ch.Close()
+	//mqMsg := amqp.Publishing{
+	//	ContentType:  "text/plain",
+	//	Body:         []byte(message),
+	//	DeliveryMode: amqp.Persistent,
+	//}
+	//ch.Publish()
+	//ch.QueuePurge()
+	//ch.NotifyPublish()
+}
+
+// 消费消息
+func (c *RabbitMQClient) Consume() {
+
+}
+
+// 关闭MQ连接
+func (c *RabbitMQClient) Close() error {
+	c.log.Debugf(" call close")
+	if c.conn == nil {
+		return nil
+	}
+	err := c.conn.Close()
+	if err != nil {
+		if err == amqp.ErrClosed {
+			return nil
+		}
+		c.log.Debugf("close error %s", err.Error())
+		return err
+	}
+	return nil
+}
+
 type RabbitMQ struct {
 	ip, user, pwd, vhost string
 	conn                 *amqp.Connection
@@ -34,7 +111,7 @@ func NewRabbitMQConnect(ip, user, pwd, vhost string, log *logrus.Logger) (*Rabbi
 // rabbit mq connect
 func (this *RabbitMQ) rabbitMqConn() error {
 	if this.ip == "" || this.user == "" || this.pwd == "" {
-		this.log.Error("<mq> rabbit connect param error,param:%+v", this)
+		this.log.Errorf("<mq> rabbit connect param error,param:%+v", this)
 		return fmt.Errorf("<mq> rabbit connect param error")
 	}
 	addr := "amqp://" + this.user + ":" + this.pwd + "@" + this.ip
@@ -69,7 +146,7 @@ func (this *RabbitMQ) getReConnFlag() bool {
 func (this *RabbitMQ) reConnect(err error) {
 	// check err is connect close
 	if err != amqp.ErrClosed {
-		this.log.Debugf("<mq> skip reConnect error:%s not le closed error")
+		this.log.Debugf("<mq> skip reConnect error:%s", err.Error())
 		return
 	}
 	// ensure one thread to visited
