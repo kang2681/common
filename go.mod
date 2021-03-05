@@ -9,11 +9,16 @@ require (
 	github.com/frankban/quicktest v1.11.3 // indirect
 	github.com/golang/snappy v0.0.2 // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible
+	github.com/google/uuid v1.2.0
+	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/kang2681/sessions v1.2.2
+	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
+	github.com/lestrrat-go/strftime v1.0.4 // indirect
 	github.com/mholt/archiver v3.1.1+incompatible
 	github.com/nwaples/rardecode v1.1.0 // indirect
 	github.com/otiai10/copy v1.4.2
 	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/shopspring/decimal v1.2.0
 	github.com/sirupsen/logrus v1.7.0
 	github.com/smartystreets/goconvey v1.6.4
