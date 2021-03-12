@@ -2,6 +2,9 @@ package stringsext
 
 import (
 	"fmt"
+
+	"github.com/axgle/mahonia"
+	"github.com/saintfish/chardet"
 )
 
 // RuneLen rune字符串长度计算
@@ -67,4 +70,23 @@ func RuneSubstrToEnd(str string, start int) (string, error) {
 		begin = 0
 	}
 	return string(data[begin:strLen]), nil
+}
+
+func ConverCharset(content, charset string) string {
+	det := chardet.NewTextDetector()
+	mostLike, err := det.DetectBest([]byte(content))
+	if err != nil {
+		return content
+	}
+	if mostLike.Charset == charset {
+		return content
+	}
+	if charset == "" {
+		charset = mostLike.Charset
+	}
+	decoder := mahonia.NewDecoder(charset)
+	if decoder == nil {
+		return content
+	}
+	return decoder.ConvertString(content)
 }

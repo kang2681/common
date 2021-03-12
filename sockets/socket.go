@@ -13,7 +13,9 @@ func NewSocketConn(server, content string, timeout int64) (string, int, error) {
 		return "", 0, err
 	}
 	defer conn.Close()
-	conn.SetReadDeadline(time.Now().Add(time.Duration(timeout) * time.Second))
+	if err := conn.SetReadDeadline(time.Now().Add(time.Duration(timeout) * time.Second)); err != nil {
+		return "", 0, err
+	}
 	_, err = conn.Write([]byte(content))
 	if err != nil {
 		return "", 0, err

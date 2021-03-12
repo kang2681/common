@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef
+	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
 	github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff
 	github.com/dsnet/compress v0.0.1 // indirect
 	github.com/frankban/quicktest v1.11.3 // indirect
@@ -19,6 +20,7 @@ require (
 	github.com/otiai10/copy v1.4.2
 	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca
 	github.com/shopspring/decimal v1.2.0
 	github.com/sirupsen/logrus v1.7.0
 	github.com/smartystreets/goconvey v1.6.4
