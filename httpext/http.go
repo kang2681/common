@@ -125,7 +125,9 @@ func (c *Client) Get(ctx context.Context, r *GetRequest) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header = r.Header.Clone()
+	if len(r.Header) > 0 {
+		req.Header = r.Header.Clone()
+	}
 	for _, v := range r.Cookies {
 		req.AddCookie(v)
 	}
@@ -149,7 +151,9 @@ func (c *Client) PostForm(ctx context.Context, r *PostFormRequest) (*Response, e
 	if err != nil {
 		return nil, err
 	}
-	req.Header = r.Header.Clone()
+	if len(r.Header) > 0 {
+		req.Header = r.Header.Clone()
+	}
 	for _, v := range r.Cookies {
 		req.AddCookie(v)
 	}
@@ -181,7 +185,9 @@ func (c *Client) PostRaw(ctx context.Context, r *PostRequest) (*Response, error)
 	if err != nil {
 		return nil, err
 	}
-	req.Header = r.Header.Clone()
+	if len(r.Header) > 0 {
+		req.Header = r.Header.Clone()
+	}
 	for _, v := range r.Cookies {
 		req.AddCookie(v)
 	}
@@ -225,7 +231,9 @@ func (c *Client) PostFile(ctx context.Context, r *PostFileRequest) (*Response, e
 	if err != nil {
 		return nil, err
 	}
-	req.Header = r.Header.Clone()
+	if len(r.Header) > 0 {
+		req.Header = r.Header.Clone()
+	}
 	for _, v := range r.Cookies {
 		req.AddCookie(v)
 	}
