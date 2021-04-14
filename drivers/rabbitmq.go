@@ -63,6 +63,7 @@ func (c *RabbitMQClient) getChan() (*amqp.Channel, error) {
 	conn := c.conn.Load().(*amqp.Connection)
 	mqchan, err := conn.Channel()
 	if err != nil {
+		go c.reConnect(err)
 		c.log.Errorf("get chan error: %s", err.Error())
 		return nil, err
 	}
@@ -178,6 +179,7 @@ func (c *RabbitMQClient) reConnect(err error) {
 	conn := c.conn.Load().(*amqp.Connection)
 	conn.Close()
 	for {
+		c.log.Debugf("RabbitMQ is doing reconning....")
 		err := c.connect()
 		if err == nil {
 			break
