@@ -12,7 +12,7 @@ import (
 )
 
 type Logger struct {
-	logrus.Entry
+	*logrus.Entry
 }
 
 const (
@@ -65,8 +65,13 @@ func getLogLevel(level string) logrus.Level {
 func NewWithUUID() *Logger {
 	entry := logrus.WithField("uuid", uuid.New().String())
 	return &Logger{
-		*entry,
+		entry,
 	}
+}
+
+func (l *Logger) WithField(key string, value interface{}) *Logger {
+	l.Entry = l.Entry.WithField(key, value)
+	return l
 }
 
 func Trace(args ...interface{}) {
