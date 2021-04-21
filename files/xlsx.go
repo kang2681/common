@@ -19,24 +19,3 @@ func ReadSheetSlice(sheet *xlsx.Sheet) [][]string {
 	})
 	return arr
 }
-
-type Xlsx struct {
-	Filename string  // 文件名
-	Sheets   []Sheet // sheet
-}
-
-type Sheet struct {
-	Name string   // sheet name
-	Head []Header // header
-	Rows []Row    // 每行的数据
-}
-
-type Row struct {
-	Data   []string
-	Height float64
-}
-
-type Header struct {
-	Value string
-	Width float64
-}
