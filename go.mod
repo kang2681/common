@@ -1,34 +1,56 @@
 module github.com/kang2681/common
 
-go 1.14
+go 1.18
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef
 	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
 	github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff
-	github.com/dsnet/compress v0.0.1 // indirect
-	github.com/frankban/quicktest v1.11.3 // indirect
-	github.com/golang/snappy v0.0.2 // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.2.0
-	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/kang2681/sessions v1.2.2
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
-	github.com/lestrrat-go/strftime v1.0.4 // indirect
 	github.com/mholt/archiver v3.1.1+incompatible
-	github.com/nwaples/rardecode v1.1.0 // indirect
 	github.com/otiai10/copy v1.4.2
-	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
-	github.com/pkg/errors v0.9.1 // indirect
+	github.com/pkg/errors v0.9.1
+	github.com/robfig/cron/v3 v3.0.1
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca
 	github.com/shopspring/decimal v1.2.0
 	github.com/sirupsen/logrus v1.7.0
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/streadway/amqp v1.0.0
 	github.com/tealeg/xlsx/v3 v3.2.3
+	gorm.io/driver/mysql v1.0.4
+	gorm.io/gorm v1.20.12
+)
+
+require (
+	github.com/dsnet/compress v0.0.1 // indirect
+	github.com/frankban/quicktest v1.11.3 // indirect
+	github.com/go-sql-driver/mysql v1.5.0 // indirect
+	github.com/golang/snappy v0.0.2 // indirect
+	github.com/google/btree v1.0.0 // indirect
+	github.com/google/go-cmp v0.5.4 // indirect
+	github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1 // indirect
+	github.com/gorilla/context v1.1.1 // indirect
+	github.com/gorilla/securecookie v1.1.1 // indirect
+	github.com/gorilla/sessions v1.1.1 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.1 // indirect
+	github.com/jonboulle/clockwork v0.2.2 // indirect
+	github.com/jtolds/gls v4.20.0+incompatible // indirect
+	github.com/kr/pretty v0.2.1 // indirect
+	github.com/kr/text v0.1.0 // indirect
+	github.com/lestrrat-go/strftime v1.0.4 // indirect
+	github.com/nwaples/rardecode v1.1.0 // indirect
+	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
+	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
+	github.com/rogpeppe/fastuuid v1.2.0 // indirect
+	github.com/shabbyrobe/xmlwriter v0.0.0-20200208144257-9fca06d00ffa // indirect
+	github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d // indirect
 	github.com/ulikunitz/xz v0.5.9 // indirect
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
 	golang.org/x/sys v0.0.0-20200323222414-85ca7c5b95cd // indirect
-	gorm.io/driver/mysql v1.0.4
-	gorm.io/gorm v1.20.12
+	golang.org/x/text v0.3.2 // indirect
+	golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543 // indirect
 )

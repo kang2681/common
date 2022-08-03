@@ -1,12 +1,12 @@
-package arrays
+package kcommon
 
 import (
 	"fmt"
 	"math"
 )
 
-// InStringArray 判断 val 是否在 arr 数组中
-func InStringArray(val string, arr []string) bool {
+// InArray 判断 val 是否在 arr 数组中
+func InArray[T Int | Uint | Float | string | Complex | bool](val T, arr []T) bool {
 	for _, v := range arr {
 		if v == val {
 			return true
@@ -15,10 +15,10 @@ func InStringArray(val string, arr []string) bool {
 	return false
 }
 
-// StringArrayUniqueMerge 求 arr 集合的并集, 会去重, 会保留传入的顺序
-func StringArrayUniqueMerge(arrs ...[]string) []string {
-	var rs []string
-	m := make(map[string]struct{})
+// ArrayUniqueMerge 求 arr 集合的并集, 会去重, 会保留传入的顺序
+func ArrayUniqueMerge[T Int | Uint | Float | string | Complex | bool](arrs ...[]T) []T {
+	rs := make([]T, 0, 100)
+	m := make(map[T]struct{})
 	for _, arr := range arrs {
 		for _, v := range arr {
 			if _, ok := m[v]; ok {
@@ -31,11 +31,11 @@ func StringArrayUniqueMerge(arrs ...[]string) []string {
 	return rs
 }
 
-// StringArrayUnique arr 数组去重
+// ArrayUnique arr 数组去重
 // 返回没有重复值的新数组，会保留原来的顺序
-func StringArrayUnique(arr []string) []string {
-	m := make(map[string]struct{})
-	var rs []string
+func ArrayUnique[T Int | Uint | Float | string | Complex | bool](arr []T) []T {
+	m := make(map[T]struct{})
+	rs := make([]T, 0, len(arr))
 	for _, v := range arr {
 		if _, ok := m[v]; ok {
 			continue
@@ -50,15 +50,15 @@ func StringArrayUnique(arr []string) []string {
 // arr 要检查的数组，作为主值。
 // arrs 要对比的数组列表。
 // 返回一个数组，该数组包含了所有在 arr 中也同时出现在所有其它参数数组中的值。
-func StringArrayIntersect(arr []string, arrs ...[]string) []string {
+func ArrayIntersect[T Int | Uint | Float | string | Complex | bool](arr []T, arrs ...[]T) []T {
 	// arr 转map
-	m := make(map[string]struct{})
+	m := make(map[T]struct{})
 	for _, v := range arr {
 		m[v] = struct{}{}
 	}
 	for _, v := range arrs {
 		// 转map
-		tmp := make(map[string]struct{})
+		tmp := make(map[T]struct{})
 		for _, val := range v {
 			tmp[val] = struct{}{}
 		}
@@ -69,7 +69,7 @@ func StringArrayIntersect(arr []string, arrs ...[]string) []string {
 		}
 	}
 	// 保留原来的顺序
-	rs := make([]string, 0, len(m))
+	rs := make([]T, 0, len(m))
 	for _, v := range arr {
 		if _, ok := m[v]; ok {
 			rs = append(rs, v)
@@ -79,28 +79,21 @@ func StringArrayIntersect(arr []string, arrs ...[]string) []string {
 }
 
 // StringArrayDiff 求 arr 数组与 arrs 差集
-// arr1 要被对比的数组
+// arr 要被对比的数组
 // arrs 和这个数组进行比较
-// 对比 arr1 和其他一个或者多个数组，返回在 arr1 中但是不在其他 arrs 里的值。
-func StringArrayDiff(arr []string, arrs ...[]string) []string {
-	m := make(map[string]struct{})
+// 对比 arr 和其他一个或者多个数组，返回在 arr 中但是不在其他 arrs 里的值。
+func ArrayDiff[T Int | Uint | Float | string | Complex | bool](arr []T, arrs ...[]T) []T {
+	m := make(map[T]struct{})
 	for _, v := range arr {
 		m[v] = struct{}{}
 	}
 	for _, v := range arrs {
-		// 转map
-		tmp := make(map[string]struct{})
 		for _, val := range v {
-			tmp[val] = struct{}{}
-		}
-		for k, _ := range m {
-			if _, ok := tmp[k]; ok {
-				delete(m, k)
-			}
+			delete(m, val)
 		}
 	}
 	// 保留原来的顺序
-	rs := make([]string, 0, len(m))
+	rs := make([]T, 0, len(m))
 	for _, v := range arr {
 		if _, ok := m[v]; ok {
 			rs = append(rs, v)
@@ -109,37 +102,39 @@ func StringArrayDiff(arr []string, arrs ...[]string) []string {
 	return rs
 }
 
-// StringArrayChunk 将一个数组分割成多个
+// ArrayChunk 将一个数组分割成多个（使用arr 同一个内存地址）
 // arr 需要操作的数组
 // size 每个数组的单元数目 必须大于 0
 //将一个数组分割成多个数组，其中每个数组的单元数目由 size 决定。最后一个数组的单元数目可能会少于 size 个。
-func StringArrayChunk(arr []string, size int) [][]string {
+func ArrayChunk[T Int | Uint | Float | string | Complex | bool](arr []T, size int) [][]T {
 	if size < 1 {
 		panic("size can not less than 1 ")
 	}
+	length := len(arr)
 	capSize := int(math.Ceil(float64(len(arr)) / float64(size)))
-	rs, tmp := make([][]string, 0, capSize), make([]string, 0, size)
-	for _, v := range arr {
-		tmp = append(tmp, v)
-		if len(tmp) == size {
-			rs = append(rs, tmp)
-			tmp = make([]string, 0, size)
+	rs := make([][]T, 0, capSize)
+	for i := 0; ; {
+		if i >= length {
+			break
 		}
-	}
-	if len(tmp) > 0 {
-		rs = append(rs, tmp)
+		end := i + size
+		if end > length {
+			end = length
+		}
+		rs = append(rs, arr[i:end])
+		i = end
 	}
 	return rs
 }
 
-// StringArrayCombine 创建一个数组，用一个数组的值作为其键名，另一个数组的值作为其值
+// ArrayCombine 创建一个数组，用一个数组的值作为其键名，另一个数组的值作为其值
 // keys 将被作为map的键
 // values 将被作为map的值
-func StringArrayCombine(keys, values []string) (map[string]string, error) {
+func ArrayCombine[T Int | Uint | Float | string | Complex | bool](keys, values []T) (map[T]T, error) {
 	if len(keys) != len(values) {
 		return nil, fmt.Errorf("keys and values length Not Equal")
 	}
-	m := make(map[string]string)
+	m := make(map[T]T)
 	for k, v := range keys {
 		m[v] = values[k]
 	}
@@ -147,8 +142,8 @@ func StringArrayCombine(keys, values []string) (map[string]string, error) {
 }
 
 // StringArrayCountValues 统计数组中所有单元值出现的次数
-func StringArrayCountValues(arr []string) map[string]int {
-	m := make(map[string]int)
+func ArrayCountValues[T Int | Uint | Float | string | Complex | bool](arr []T) map[T]int {
+	m := make(map[T]int)
 	for _, v := range arr {
 		m[v]++
 	}
@@ -156,7 +151,7 @@ func StringArrayCountValues(arr []string) map[string]int {
 }
 
 // StringArraySearch 在数组haystack中搜索给定的值，如果成功则返回首个相应的下标
-func StringArraySearch(needle string, haystack []string) (int, bool) {
+func ArraySearch[T Int | Uint | Float | string | Complex | bool](needle T, haystack []T) (int, bool) {
 	for k, v := range haystack {
 		if v == needle {
 			return k, true

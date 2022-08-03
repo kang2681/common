@@ -21,7 +21,7 @@ func TestParser_ParseString(t *testing.T) {
 		Convey("New", func() {
 			rs := NewParser("{{code}}_{{name}}.log")
 			data, err := rs.ParseString("111_test.log")
-			So(err, ShouldBeEmpty)
+			So(err, ShouldBeNil)
 			So(data, ShouldResemble, map[string]string{"code": "111", "name": "test"})
 		})
 	})

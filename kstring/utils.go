@@ -1,4 +1,4 @@
-package stringsext
+package kstring
 
 import (
 	"crypto/md5"
