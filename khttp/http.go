@@ -1,4 +1,4 @@
-package httpext
+package khttp
 
 import (
 	"bytes"
@@ -15,6 +15,10 @@ import (
 	"strings"
 	"time"
 )
+
+func Post() {
+
+}
 
 type ContentType = string
 
