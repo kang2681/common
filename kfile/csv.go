@@ -1,4 +1,4 @@
-package files
+package kfile
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-//GetCsvData获取Csv格式数据
+// GetCsvData获取Csv格式数据
 func WriteCSV(data [][]string) []byte {
 	buf := bytes.NewBufferString("\xEF\xBB\xBF") // 写入UTF-8 BOM
 	//添加数据行

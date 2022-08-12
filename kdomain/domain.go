@@ -1,17 +1,17 @@
-package domainext
+package kdomain
 
 import (
 	"regexp"
 	"strings"
 )
 
-//GetDomainTld 获取域名最后一级后缀
+// GetDomainTld 获取域名最后一级后缀
 func GetDomainTld(domain string) string {
 	dnArr := strings.Split(domain, ".")
 	return strings.ToLower(dnArr[len(dnArr)-1])
 }
 
-//GetDomainSuffix 获取域名后缀
+// GetDomainSuffix 获取域名后缀
 func GetDomainSuffix(domain string) string {
 	arr := strings.Split(domain, ".")
 	domainClassAll := ""
@@ -24,7 +24,7 @@ func GetDomainSuffix(domain string) string {
 	return strings.ToLower(domainClassAll)
 }
 
-//GetDomainBody 获取域名前缀
+// GetDomainBody 获取域名前缀
 func GetDomainBody(domain string) string {
 	n := strings.Index(domain, ".")
 	if n <= 0 {
@@ -33,7 +33,7 @@ func GetDomainBody(domain string) string {
 	return strings.ToLower(domain[0:n])
 }
 
-//IsCnnicDomain 判断域名后缀是否是CN 中国 公司 网络 网址
+// IsCnnicDomain 判断域名后缀是否是CN 中国 公司 网络 网址
 func IsCnnicDomain(dn string) bool {
 	tld := GetDomainTld(dn)
 	if tld == "cn" || tld == "中国" || tld == "公司" || tld == "网络" || tld == "网址" {
@@ -42,7 +42,7 @@ func IsCnnicDomain(dn string) bool {
 	return false
 }
 
-//IsDomainBodyHaveZhongwen 判断域名主体是否有中文
+// IsDomainBodyHaveZhongwen 判断域名主体是否有中文
 func IsDomainBodyHaveZhongwen(domain string) bool {
 	domainBody := GetDomainBody(domain)
 	reg := regexp.MustCompile(`[\p{Han}]`)
@@ -52,7 +52,7 @@ func IsDomainBodyHaveZhongwen(domain string) bool {
 	return true
 }
 
-//IsDomainSuffixHaveZhongwen 判断是否含有中文的后缀
+// IsDomainSuffixHaveZhongwen 判断是否含有中文的后缀
 func IsDomainSuffixHaveZhongwen(domain string) bool {
 	suffix := GetDomainSuffix(domain)
 	reg := regexp.MustCompile(`[\p{Han}]`)

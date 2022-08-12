@@ -1,4 +1,4 @@
-package osext
+package kos
 
 import (
 	"os"

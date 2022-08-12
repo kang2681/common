@@ -1,4 +1,4 @@
-package drivers
+package krmq
 
 import (
 	"fmt"
@@ -6,7 +6,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/kang2681/common/log"
+	"github.com/kang2681/common/klog"
+	"go.uber.org/zap"
 
 	"github.com/streadway/amqp"
 )
@@ -24,7 +25,7 @@ type RabbitMQConfig struct {
 type RabbitMQClient struct {
 	config       *RabbitMQConfig
 	conn         atomic.Value
-	log          *log.Logger
+	log          *zap.SugaredLogger
 	mx           sync.RWMutex
 	reConnecting bool
 }
@@ -32,7 +33,7 @@ type RabbitMQClient struct {
 func NewRabbitMQClient(config *RabbitMQConfig) (*RabbitMQClient, error) {
 	client := &RabbitMQClient{
 		config: config,
-		log:    log.NewWithUUID().WithField("struct", "RabbitMQClient"),
+		log:    klog.NewSugarLog().With("struct", "RabbitMQClient"),
 	}
 	if err := client.connect(); err != nil {
 		client.log.Debugf("client connect error %s", err.Error())

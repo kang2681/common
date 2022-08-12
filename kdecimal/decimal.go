@@ -1,4 +1,4 @@
-package decimalext
+package kdecimal
 
 import (
 	"github.com/shopspring/decimal"

@@ -9,8 +9,8 @@ require (
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.2.0
 	github.com/kang2681/sessions v1.2.2
-	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/mholt/archiver v3.1.1+incompatible
+	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/otiai10/copy v1.4.2
 	github.com/pkg/errors v0.9.1
 	github.com/robfig/cron/v3 v3.0.1
@@ -20,11 +20,16 @@ require (
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/streadway/amqp v1.0.0
 	github.com/tealeg/xlsx/v3 v3.2.3
+	go.uber.org/zap v1.21.0
+	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gorm.io/driver/mysql v1.0.4
 	gorm.io/gorm v1.20.12
 )
 
 require (
+	github.com/BurntSushi/toml v1.2.0 // indirect
+	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
+	github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137 // indirect
 	github.com/dsnet/compress v0.0.1 // indirect
 	github.com/frankban/quicktest v1.11.3 // indirect
 	github.com/go-sql-driver/mysql v1.5.0 // indirect
@@ -37,12 +42,9 @@ require (
 	github.com/gorilla/sessions v1.1.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.1 // indirect
-	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
 	github.com/kr/pretty v0.2.1 // indirect
 	github.com/kr/text v0.1.0 // indirect
-	github.com/lestrrat-go/strftime v1.0.4 // indirect
-	github.com/natefinch/lumberjack v2.0.0+incompatible // indirect
 	github.com/nwaples/rardecode v1.1.0 // indirect
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
 	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
@@ -53,8 +55,8 @@ require (
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
-	go.uber.org/zap v1.21.0 // indirect
 	golang.org/x/sys v0.0.0-20210510120138-977fb7262007 // indirect
 	golang.org/x/text v0.3.3 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 )

@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
-
-	"github.com/sirupsen/logrus"
 )
 
 type Parser struct {
@@ -14,7 +12,6 @@ type Parser struct {
 }
 
 func NewParser(format string) *Parser {
-	logrus.Infof("format:%s", format)
 	reg := regexp.MustCompile(`\\\{\\\{([a-z_]+)\\\}\\\}(\\?(.))`)
 	re := reg.ReplaceAllString(regexp.QuoteMeta(format+" "), "(?P<$1>[^$3]*)$2")
 	return &Parser{

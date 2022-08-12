@@ -6,17 +6,15 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/kang2681/common/httpext"
-	"github.com/kang2681/common/log"
+	"github.com/kang2681/common/khttp"
 )
 
 type Robot struct {
-	log *log.Logger
 	URL string
 }
 
-func NewRobot(l *log.Logger, url string) *Robot {
-	return &Robot{log: l, URL: url}
+func NewRobot(url string) *Robot {
+	return &Robot{URL: url}
 }
 
 type robotMessage struct {
@@ -41,11 +39,11 @@ func (r *Robot) Send(msg robotMessage) (*robotResp, error) {
 	if err != nil {
 		return nil, err
 	}
-	req := httpext.PostRequest{
+	req := khttp.PostRequest{
 		Body: bytes.NewBuffer(data),
 	}
 	req.URL = r.URL
-	resp, err := httpext.NewDefaultClient().PostRaw(context.Background(), &req)
+	resp, err := khttp.NewDefaultClient().PostRaw(context.Background(), &req)
 	if err != nil {
 		return nil, err
 	}

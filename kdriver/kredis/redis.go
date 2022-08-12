@@ -1,4 +1,4 @@
-package drivers
+package kredis
 
 import (
 	"time"
@@ -6,7 +6,7 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
-//NewRedisConn 获取连接池
+// NewRedisConn 获取连接池
 func NewRedisConn(server string, maxActive, maxIdle, timeoutSecond int) *redis.Pool {
 	timeout := time.Duration(timeoutSecond) * time.Second
 	return &redis.Pool{

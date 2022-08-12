@@ -1,8 +1,9 @@
-package osext
+package kos
 
 import (
 	"errors"
 	"io"
+	"io/fs"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -165,3 +166,21 @@ func SearchFile(src string, keyword string) (os.FileInfo, error) {
 //	}
 //	return nil, FILE_NOT_FIND
 //}
+
+func SearchFileCallback(dir string, fn func(d fs.DirEntry) error) []fs.DirEntry {
+	if !IsDir(dir) {
+		return nil
+	}
+	arr := make([]fs.DirEntry, 0, 100)
+	filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
+		if d.IsDir() {
+			return fs.SkipDir
+		}
+		if err := fn(d); err != nil {
+			return err
+		}
+		arr = append(arr, d)
+		return nil
+	})
+	return arr
+}

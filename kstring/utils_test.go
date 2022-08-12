@@ -3,8 +3,6 @@ package kstring
 import (
 	"testing"
 
-	"github.com/sirupsen/logrus"
-
 	. "github.com/smartystreets/goconvey/convey"
 )
 
@@ -25,7 +23,6 @@ func TestRand(t *testing.T) {
 	Convey("TestRand", t, func() {
 		Convey("", func() {
 			data := Rand("12", 2)
-			logrus.Infof("Data:%s", data)
 			So(data, ShouldBeIn, []string{"11", "22", "12", "21"})
 		})
 	})
