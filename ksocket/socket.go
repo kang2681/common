@@ -1,4 +1,4 @@
-package sockets
+package ksocket
 
 import (
 	"io"
@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-//NewSocketConn 创建一个SOCKET连接，并发送content到目标 超时单位：秒
+// NewSocketConn 创建一个SOCKET连接，并发送content到目标 超时单位：秒
 func NewSocketConn(server, content string, timeout int64) (string, int, error) {
 	conn, err := net.Dial("tcp", server)
 	if err != nil {

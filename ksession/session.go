@@ -1,4 +1,4 @@
-package sessions
+package ksession
 
 import (
 	"github.com/boj/redistore"

@@ -1,4 +1,4 @@
-package validate
+package kvalidator
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ func IsEmail(str string) bool {
 	return govalidator.IsEmail(str)
 }
 
-//身份证格式校验
+// 身份证格式校验
 func CheckIdCard(idCard string) error {
 	flag, err := regexp.MatchString(`^[\d]{17}[\dX]{1}$`, idCard)
 	if err != nil {
@@ -43,7 +43,7 @@ func CheckIdCard(idCard string) error {
 	return fmt.Errorf("verify error")
 }
 
-//IsMobilePhoneNum 判断是不是手机号  支持165，166，198，199号段
+// IsMobilePhoneNum 判断是不是手机号  支持165，166，198，199号段
 func IsMobilePhoneNum(s string) (isRight bool) {
 	phoneExpArr := []string{`^[1][34578][0-9]{9}$`, `^[1][6][5-6][0-9]{8}$`, `^[1][9][189][0-9]{8}$`}
 	for _, pnoneExp := range phoneExpArr {
@@ -55,7 +55,7 @@ func IsMobilePhoneNum(s string) (isRight bool) {
 	return
 }
 
-//IsTelPhoneNum 判断是不是电话号码
+// IsTelPhoneNum 判断是不是电话号码
 func IsTelPhoneNum(s string) (isRight bool) {
 	reg := regexp.MustCompile(`^0[\d]{2,3}-[\d]{7,8}$`)
 	if len(reg.FindAllString(s, -1)) > 0 {
@@ -64,7 +64,7 @@ func IsTelPhoneNum(s string) (isRight bool) {
 	return
 }
 
-//检查是否含有中文 是true 否false
+// 检查是否含有中文 是true 否false
 func IsContainChinese(s string) bool {
 	rs, _ := regexp.MatchString("[\u4e00-\u9fa5]+", s)
 	return rs

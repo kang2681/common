@@ -1,4 +1,4 @@
-package regexpext
+package kregexp
 
 import "regexp"
 
