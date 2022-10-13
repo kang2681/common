@@ -1,8 +1,6 @@
 package qywx
 
 import (
-	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 
@@ -39,16 +37,14 @@ func (r *Robot) Send(msg robotMessage) (*robotResp, error) {
 	if err != nil {
 		return nil, err
 	}
-	req := khttp.PostRequest{
-		Body: bytes.NewBuffer(data),
-	}
-	req.URL = r.URL
-	resp, err := khttp.NewDefaultClient().PostRaw(context.Background(), &req)
+	client := khttp.Client{}
+	req := client.NewRequest()
+	resp, err := req.SetBody(data).Post(r.URL)
 	if err != nil {
 		return nil, err
 	}
 	rs := robotResp{}
-	if err := resp.Json(&rs); err != nil {
+	if err := json.Unmarshal(resp.Body(), &rs); err != nil {
 		return nil, err
 	}
 	return &rs, nil
