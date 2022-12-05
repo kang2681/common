@@ -105,7 +105,7 @@ func ArrayDiff[T Int | Uint | Float | string | Complex | bool](arr []T, arrs ...
 // ArrayChunk 将一个数组分割成多个（使用arr 同一个内存地址）
 // arr 需要操作的数组
 // size 每个数组的单元数目 必须大于 0
-//将一个数组分割成多个数组，其中每个数组的单元数目由 size 决定。最后一个数组的单元数目可能会少于 size 个。
+// 将一个数组分割成多个数组，其中每个数组的单元数目由 size 决定。最后一个数组的单元数目可能会少于 size 个。
 func ArrayChunk[T Int | Uint | Float | string | Complex | bool](arr []T, size int) [][]T {
 	if size < 1 {
 		panic("size can not less than 1 ")

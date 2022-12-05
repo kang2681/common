@@ -18,9 +18,9 @@ func NewRobot(url string) *Robot {
 type robotMessage struct {
 	MsgType  string          `json:"msgtype"` // text markdown image news file
 	Text     TextMessage     `json:"text,omitempty"`
-	Markdown MarkdownMessage `json:"markdown"`
-	Image    ImageMessage    `json:"image"`
-	News     NewsMessage     `json:"news"`
+	Markdown MarkdownMessage `json:"markdown,omitempty"`
+	Image    ImageMessage    `json:"image,omitempty"`
+	News     NewsMessage     `json:"news,omitempty"`
 }
 
 // {"errcode":0,"errmsg":"ok"}
